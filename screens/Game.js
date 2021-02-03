@@ -4,9 +4,8 @@ import { AuthContext } from '../context/AuthContext';
 import { firebaseDB } from '../firebase';
 
 export default function Game() {
-  const { category, setCategory } = useState();
+  //const { category, setCategory } = useState();
 
-  const question
 
 
   //TODO text display an array, from firebase? buttons always display true or false
