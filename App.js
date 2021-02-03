@@ -1,16 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View, Image } from 'react-native';
-import { NavigationContainer, useNavigation, useRoute } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import AuthContextProvider from './context/AuthContext';
+import AuthNavigation from './navigation/AuthNavigation';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import Home from './screens/Home';
+import LogIn from './screens/LogIn';
 
 export default function App() {
   return (
-    <ScreenNavigator />
+    <AuthContextProvider>
+    <AuthNavigation />
+    </AuthContextProvider>
   );
 }
 
-const ScreenNavigator = () => {
+/*const ScreenNavigator = () => {
   const Stack = createStackNavigator();
   return(
     <NavigationContainer>
@@ -21,6 +24,7 @@ const ScreenNavigator = () => {
     </NavigationContainer>
   )
 }
+
 
 const CategoryScreen = () => {
   const route = useRoute()
@@ -46,6 +50,7 @@ const HomeScreen = () => {
     </View>
   )
 }
+*/
 
 
 const styles = StyleSheet.create({
@@ -54,12 +59,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  header: {
-    alignItems: 'center',
-    fontSize: 40,
-    fontWeight: 'bold',
-    padding: 10,
-    color: 'green'
   },
 });
