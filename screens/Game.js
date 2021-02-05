@@ -1,48 +1,113 @@
-import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
-import { AuthContext } from '../context/AuthContext';
-import { firebaseDB } from '../firebase';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-export default function Game() {
-  //const { category, setCategory } = useState();
+export default function Game({ route, navigation }) {
+  //const route = useRoute();
+  //const navigation = useNavigation();
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [score, setScore] = useState(0);
+  const [answer, setAnswer] = useState(0);
+  const totalQuestions = 7;
 
+  const [whichList, setWhichList] = useState([]);
 
+  const onPress = () => setQuestionIndex((prevCount) => prevCount + 1);
+  const increaseScore = () => setScore((prev) => prev + 1);
+  //const setGame = () => setGameOver(prev => !prev)
 
-  //TODO text display an array, from firebase? buttons always display true or false
+  /*useEffect(() => { historyQuestions()
+    historyQuestions().then(console.log(questionsHistory)).catch(e => console.log(e))
+  }, []) */
 
-  let category = 'Sport'
+  useEffect(() => {
+    //TODO Get firebase data, set one of the lists to current
+    if (route.params.cat == 'History') {
+      console.log('HISTORY');
+    } else if (route.params.cat == 'Sport') {
+      console.log('SPORT');
+    } else {
+      console.log('MUSIC');
+    }
+  }, []);
 
-  let questions = []
-  
+  const historyQuestions = [
+    { text: 'Second world war started 1937', correctAnswer: 1 },
+    { text: 'Second world war ended 1945', correctAnswer: 0 },
+    { text: 'First world war started 1914', correctAnswer: 0 },
+    { text: 'First world war ended 1918', correctAnswer: 0 },
+    { text: 'Tesla war created 2003', correctAnswer: 0 },
+    { text: 'Apple was founded 1986', correctAnswer: 1 },
+    { text: 'Zlatan is born 1980', correctAnswer: 1 },
+    { text: 'Game Finished', correctAnswer: 1 },
+  ];
+
+  const questionList = [
+    { text: 'Zlatan Shirt number is 11', correctAnswer: 0 },
+    { text: 'Really True?', correctAnswer: 1 },
+    { text: 'Really False?', correctAnswer: 1 },
+    { text: 'Question 4', correctAnswer: 1 },
+    { text: 'Question 5', correctAnswer: 1 },
+    { text: 'Question 6', correctAnswer: 1 },
+    { text: 'Question 7', correctAnswer: 1 },
+    { text: 'Game Finished' },
+  ];
 
   return (
     <View style={styles.container}>
+      <Text>
+        Score: {score}/{totalQuestions}
+      </Text>
       <Text style={styles.categoryText}>Chosen Category: </Text>
-      <Text style={styles.categoryText}>{category}</Text>
-      <Text style={styles.questionText}>Display question text {category}</Text>
-     
-      <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity style={styles.buttonTrue}>
-        <Text style={{textAlign: 'center', fontWeight: 'bold'}}>True</Text>
+      <Text style={styles.categoryText}>{route.params.cat}</Text>
+      <Text style={styles.questionText}>
+        {historyQuestions[questionIndex].text}
+      </Text>
+
+      <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity
+          style={styles.buttonTrue}
+          onPress={() => {
+            if (questionIndex > 5) {
+              navigation.navigate('Score', { points: score });
+            }
+            onPress(),
+              checkAnswer(
+                0,
+                historyQuestions[questionIndex].correctAnswer,
+                increaseScore
+              );
+          }}
+        >
+          <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>True</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.buttonFalse}>
-          <Text style={{textAlign: 'center', fontWeight: 'bold'}}>False</Text>
+        <TouchableOpacity
+          style={styles.buttonFalse}
+          onPress={() => {
+            if (questionIndex > 5) {
+              navigation.navigate('Score', { points: score });
+            }
+            onPress(),
+              checkAnswer(
+                1,
+                historyQuestions[questionIndex].correctAnswer,
+                increaseScore
+              );
+          }}
+        >
+          <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>False</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
 
-
-
-
-const questionListArray = () => {
-  const questionList = [
-    {id: 1, text: 'Sport'},
-    {id: 2, text: 'Music'},
-    {id: 3, text: 'History'}]
-}
+const checkAnswer = (answer, correctAnswer, increaseScore) => {
+  if (answer == correctAnswer) {
+    increaseScore();
+  }
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -77,5 +142,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     padding: 10,
-  }
+  },
 });
