@@ -5,6 +5,9 @@ import { NavigationContainer, useNavigation, useRoute } from '@react-navigation/
 import { AuthContext } from '../context/AuthContext';
 
 
+//TODO Feedback on wrong userinput
+
+
 
 export default function LogIn({ navigation }) {
     const [email, setEmail] = useState('');
@@ -16,7 +19,6 @@ export default function LogIn({ navigation }) {
         console.log('log in submit');
         logIn(email, password);
     }
-
 
     return(
         <View style={styles.container}>
