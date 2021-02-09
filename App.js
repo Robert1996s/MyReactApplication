@@ -13,44 +13,6 @@ export default function App() {
   );
 }
 
-/*const ScreenNavigator = () => {
-  const Stack = createStackNavigator();
-  return(
-    <NavigationContainer>
-      <ScreenNavigator>
-        <Stack.Screen name= "HomeScreen" component={HomeScreen}/>
-        <Stack.Screen name= "CategoryScreen" component={CategoryScreen}/>
-      </ScreenNavigator>
-    </NavigationContainer>
-  )
-}
-
-
-const CategoryScreen = () => {
-  const route = useRoute()
-  return(
-    <View style={styles.header}>
-      <Text style={styles.header}>Choose Category</Text>
-      <Button title="Sport" 
-      onPress={() => console.log('Play pressed')}/>
-      <Button title="Movies" 
-      onPress={() => console.log('Play pressed')}/>
-    </View>
-  )
-}
-
-const HomeScreen = () => {
-  const route = useRoute()
-  const navigation = useNavigation();
-  return(
-    <View style={styles.header}>
-      <Text style={styles.header}>50/50 Game</Text>
-      <Button title="Play" 
-      onPress={() => navigation.navigate("CategoryScreen")}/>
-    </View>
-  )
-}
-*/
 
 
 const styles = StyleSheet.create({

@@ -5,7 +5,7 @@ export default function Splash() {
 
   return (
     <View style={styles.container}>
-        <Text>App</Text>
+        <Text>Loading</Text>
       <ActivityIndicator animating={true} />
     </View>
   );

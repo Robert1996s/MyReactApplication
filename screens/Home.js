@@ -1,27 +1,36 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Home() {
-  const { setIsLoggedIn, signOut } = useContext(AuthContext);
+  const { signOut } = useContext(AuthContext);
   const navigation = useNavigation();
 
   const submit = () => {
     signOut();
   };
 
-
   return (
-
-      <View style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.header}>50/50 Game</Text>
+
       <TouchableOpacity style={styles.playButton}>
-        <Text style={{color: 'white', fontWeight: 'bold'}} onPress={() => navigation.navigate('Categories')}>Play</Text>
+        <Text
+          style={{
+            color: 'white',
+            fontWeight: 'bold',
+            width: 60,
+            textAlign: 'center',
+          }}
+          onPress={() => navigation.navigate('Categories')}
+        >
+          Play
+        </Text>
       </TouchableOpacity>
 
       <Button style={styles.signOutButton} title="Sign Out" onPress={submit} />
-      </View>
+    </View>
   );
 }
 
@@ -30,7 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   header: {
     marginTop: 30,
@@ -50,5 +59,5 @@ const styles = StyleSheet.create({
   },
   signOutButton: {
     marginBottom: 10,
-  }
+  },
 });
